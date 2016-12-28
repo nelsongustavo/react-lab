@@ -6,7 +6,7 @@ gulp.task("default", ["transpile"]);
 
 gulp.task("transpile", () => {
 
-  return browserify("src/components.js")
+  return browserify("src/comments-box.js")
     .transform("babelify", {presets: ["es2015", "react"]})
     .bundle()
     .pipe(source("bundle.js"))

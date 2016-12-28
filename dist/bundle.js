@@ -20456,15 +20456,15 @@ module.exports = require('./lib/React');
 },{"./lib/React":155}],178:[function(require,module,exports){
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactDom = require("react-dom");
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20474,94 +20474,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Comment = function (_React$Component) {
-  _inherits(Comment, _React$Component);
-
-  function Comment() {
-    _classCallCheck(this, Comment);
-
-    var _this = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this));
-
-    _this.state = {
-      isAbusive: false
-    };
-    return _this;
-  }
-
-  _createClass(Comment, [{
-    key: "render",
-    value: function render() {
-      var commentBody = void 0;
-      if (!this.state.isAbusive) {
-        commentBody = this.props.body;
-      } else {
-        commentBody = _react2.default.createElement(
-          "em",
-          null,
-          "Content Marked as Abusive"
-        );
-      }
-      return _react2.default.createElement(
-        "div",
-        { className: "comment" },
-        _react2.default.createElement("img", { alt: this.props.author + "'s picture", src: this.props.avatarUrl }),
-        _react2.default.createElement(
-          "p",
-          { className: "comment-header" },
-          this.props.author
-        ),
-        _react2.default.createElement(
-          "p",
-          { className: "comment-body" },
-          commentBody
-        ),
-        _react2.default.createElement(
-          "div",
-          { className: "comment-actions" },
-          _react2.default.createElement(
-            "a",
-            { href: "#" },
-            "Delete comment"
-          ),
-          _react2.default.createElement(
-            "a",
-            { href: "#", onClick: this._toggleAbuse.bind(this) },
-            "Report as Abuse"
-          )
-        )
-      );
-    }
-  }, {
-    key: "_toggleAbuse",
-    value: function _toggleAbuse(event) {
-      event.preventDefault();
-      this.setState({
-        isAbusive: !this.state.isAbusive
-      });
-    }
-  }]);
-
-  return Comment;
-}(_react2.default.Component);
-
-var CommentForm = function (_React$Component2) {
-  _inherits(CommentForm, _React$Component2);
+var CommentForm = function (_React$Component) {
+  _inherits(CommentForm, _React$Component);
 
   function CommentForm() {
     _classCallCheck(this, CommentForm);
 
-    var _this2 = _possibleConstructorReturn(this, (CommentForm.__proto__ || Object.getPrototypeOf(CommentForm)).call(this));
+    var _this = _possibleConstructorReturn(this, (CommentForm.__proto__ || Object.getPrototypeOf(CommentForm)).call(this));
 
-    _this2.state = {
+    _this.state = {
       characters: 0
     };
-    return _this2;
+    return _this;
   }
 
   _createClass(CommentForm, [{
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _react2.default.createElement(
         "form",
@@ -20575,12 +20505,12 @@ var CommentForm = function (_React$Component2) {
           "div",
           { className: "comment-form-fields" },
           _react2.default.createElement("input", { placeholder: "Name:", ref: function ref(input) {
-              return _this3._author = input;
+              return _this2._author = input;
             } }),
           _react2.default.createElement("textarea", {
             placeholder: "Comment:",
             ref: function ref(textarea) {
-              return _this3._body = textarea;
+              return _this2._body = textarea;
             },
             onKeyUp: this._getCharacterCount.bind(this) })
         ),
@@ -20621,115 +20551,239 @@ var CommentForm = function (_React$Component2) {
   return CommentForm;
 }(_react2.default.Component);
 
-var CommentBox = function (_React$Component3) {
-  _inherits(CommentBox, _React$Component3);
+exports.default = CommentForm;
 
-  function CommentBox() {
-    _classCallCheck(this, CommentBox);
+},{"react":177}],179:[function(require,module,exports){
+"use strict";
 
-    var _this4 = _possibleConstructorReturn(this, (CommentBox.__proto__ || Object.getPrototypeOf(CommentBox)).call(this));
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
 
-    _this4.state = {
-      showComments: false,
-      comments: [{ id: 1, author: 'Morgan McCircuit', body: 'Great picture!', avatarUrl: 'assets/images/default-avatar.png' }, { id: 2, author: 'Bending Bender', body: 'Excellent stuff', avatarUrl: 'assets/images/default-avatar.png' }]
-    };
-    return _this4;
-  }
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-  _createClass(CommentBox, [{
-    key: "render",
-    value: function render() {
-      var comments = this._getComments();
-      var commentNodes = void 0;
-      var buttonText = 'Show comments';
-      if (this.state.showComments) {
-        buttonText = 'Hide comments';
-        commentNodes = _react2.default.createElement(
-          "div",
-          { className: "comment-list" },
-          " ",
-          comments,
-          " "
-        );
-      }
-      return _react2.default.createElement(
-        "div",
-        { className: "comment-box" },
-        _react2.default.createElement(CommentForm, { addComment: this._addComment.bind(this) }),
-        _react2.default.createElement(
-          "h3",
-          null,
-          "Comments"
-        ),
-        _react2.default.createElement(
-          "button",
-          { onClick: this._handleClick.bind(this) },
-          buttonText
-        ),
-        this._getPopularMessage(comments.length),
-        _react2.default.createElement(
-          "h4",
-          { className: "comment-count" },
-          this._getCommentsTitle(comments.length)
-        ),
-        commentNodes
-      );
-    }
-  }, {
-    key: "_handleClick",
-    value: function _handleClick() {
-      this.setState({
-        showComments: !this.state.showComments
-      });
-    }
-  }, {
-    key: "_getPopularMessage",
-    value: function _getPopularMessage(commentCount) {
-      var POPULAR_COUNT = 10;
-      if (commentCount > POPULAR_COUNT) {
-        return _react2.default.createElement(
-          "div",
-          null,
-          " This post is getting really popular, don't miss out! "
-        );
-      }
-    }
-  }, {
-    key: "_getComments",
-    value: function _getComments() {
-      return this.state.comments.map(function (comment) {
-        return _react2.default.createElement(Comment, { author: comment.author, body: comment.body, avatarUrl: comment.avatarUrl, key: comment.id });
-      });
-    }
-  }, {
-    key: "_getCommentsTitle",
-    value: function _getCommentsTitle(commentCount) {
-      if (commentCount === 0) {
-        return 'No comments yet';
-      } else if (commentCount === 1) {
-        return '1 comment';
-      } else {
-        return commentCount + " comments";
-      }
-    }
-  }, {
-    key: "_addComment",
-    value: function _addComment(commentAuthor, commentBody) {
-      var comment = {
-        id: Math.floor(Math.random() * (9999 - this.state.comments.length + 1)) + this.state.comments.length,
-        author: commentAuthor,
-        body: commentBody
-      };
+var _react = require("react");
 
-      this.setState({
-        comments: this.state.comments.concat([comment])
-      });
-    }
-  }]);
+var _react2 = _interopRequireDefault(_react);
 
-  return CommentBox;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Comment = function (_React$Component) {
+	_inherits(Comment, _React$Component);
+
+	function Comment() {
+		_classCallCheck(this, Comment);
+
+		var _this = _possibleConstructorReturn(this, (Comment.__proto__ || Object.getPrototypeOf(Comment)).call(this));
+
+		_this.state = {
+			isAbusive: false
+		};
+		return _this;
+	}
+
+	_createClass(Comment, [{
+		key: "render",
+		value: function render() {
+			var commentBody = void 0;
+			if (!this.state.isAbusive) {
+				commentBody = this.props.body;
+			} else {
+				commentBody = _react2.default.createElement(
+					"em",
+					null,
+					"Content Marked as Abusive"
+				);
+			}
+			return _react2.default.createElement(
+				"div",
+				{ className: "comment" },
+				_react2.default.createElement("img", { alt: this.props.author + "'s picture", src: this.props.avatarUrl }),
+				_react2.default.createElement(
+					"p",
+					{ className: "comment-header" },
+					this.props.author
+				),
+				_react2.default.createElement(
+					"p",
+					{ className: "comment-body" },
+					commentBody
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "comment-actions" },
+					_react2.default.createElement(
+						"a",
+						{ href: "#" },
+						"Delete comment"
+					),
+					_react2.default.createElement(
+						"a",
+						{ href: "#", onClick: this._toggleAbuse.bind(this) },
+						"Report as Abuse"
+					)
+				)
+			);
+		}
+	}, {
+		key: "_toggleAbuse",
+		value: function _toggleAbuse(event) {
+			event.preventDefault();
+			this.setState({
+				isAbusive: !this.state.isAbusive
+			});
+		}
+	}]);
+
+	return Comment;
+}(_react2.default.Component);
+
+exports.default = Comment;
+
+},{"react":177}],180:[function(require,module,exports){
+"use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = require("react");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactDom = require("react-dom");
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _comment = require("./comment");
+
+var _comment2 = _interopRequireDefault(_comment);
+
+var _commentForm = require("./comment-form");
+
+var _commentForm2 = _interopRequireDefault(_commentForm);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CommentBox = function (_React$Component) {
+	_inherits(CommentBox, _React$Component);
+
+	function CommentBox() {
+		_classCallCheck(this, CommentBox);
+
+		var _this = _possibleConstructorReturn(this, (CommentBox.__proto__ || Object.getPrototypeOf(CommentBox)).call(this));
+
+		_this.state = {
+			showComments: false,
+			comments: [{ id: 1, author: 'Morgan McCircuit', body: 'Great picture!', avatarUrl: 'assets/images/default-avatar.png' }, { id: 2, author: 'Bending Bender', body: 'Excellent stuff', avatarUrl: 'assets/images/default-avatar.png' }]
+		};
+		return _this;
+	}
+
+	_createClass(CommentBox, [{
+		key: "render",
+		value: function render() {
+			var comments = this._getComments();
+			var commentNodes = void 0;
+			var buttonText = 'Show comments';
+			if (this.state.showComments) {
+				buttonText = 'Hide comments';
+				commentNodes = _react2.default.createElement(
+					"div",
+					{ className: "comment-list" },
+					" ",
+					comments,
+					" "
+				);
+			}
+			return _react2.default.createElement(
+				"div",
+				{ className: "comment-box" },
+				_react2.default.createElement(_commentForm2.default, { addComment: this._addComment.bind(this) }),
+				_react2.default.createElement(
+					"h3",
+					null,
+					"Comments"
+				),
+				_react2.default.createElement(
+					"button",
+					{ onClick: this._handleClick.bind(this) },
+					buttonText
+				),
+				this._getPopularMessage(comments.length),
+				_react2.default.createElement(
+					"h4",
+					{ className: "comment-count" },
+					this._getCommentsTitle(comments.length)
+				),
+				commentNodes
+			);
+		}
+	}, {
+		key: "_handleClick",
+		value: function _handleClick() {
+			this.setState({
+				showComments: !this.state.showComments
+			});
+		}
+	}, {
+		key: "_getPopularMessage",
+		value: function _getPopularMessage(commentCount) {
+			var POPULAR_COUNT = 10;
+			if (commentCount > POPULAR_COUNT) {
+				return _react2.default.createElement(
+					"div",
+					null,
+					" This post is getting really popular, don't miss out! "
+				);
+			}
+		}
+	}, {
+		key: "_getComments",
+		value: function _getComments() {
+			return this.state.comments.map(function (comment) {
+				return _react2.default.createElement(_comment2.default, { author: comment.author, body: comment.body, avatarUrl: comment.avatarUrl, key: comment.id });
+			});
+		}
+	}, {
+		key: "_getCommentsTitle",
+		value: function _getCommentsTitle(commentCount) {
+			if (commentCount === 0) {
+				return 'No comments yet';
+			} else if (commentCount === 1) {
+				return '1 comment';
+			} else {
+				return commentCount + " comments";
+			}
+		}
+	}, {
+		key: "_addComment",
+		value: function _addComment(commentAuthor, commentBody) {
+			var comment = {
+				id: Math.floor(Math.random() * (9999 - this.state.comments.length + 1)) + this.state.comments.length,
+				author: commentAuthor,
+				body: commentBody
+			};
+
+			this.setState({
+				comments: this.state.comments.concat([comment])
+			});
+		}
+	}]);
+
+	return CommentBox;
 }(_react2.default.Component);
 
 _reactDom2.default.render(_react2.default.createElement(CommentBox, null), document.getElementById("story-app"));
 
-},{"react":177,"react-dom":26}]},{},[178]);
+},{"./comment":179,"./comment-form":178,"react":177,"react-dom":26}]},{},[180]);
