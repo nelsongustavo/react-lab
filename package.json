@@ -1,0 +1,13 @@
+{
+  "name": "Nelson",
+  "version": "1.0.0",
+  "description": "Lab to learn react",
+  "main": "index.js",
+  "author": "Nelson",
+  "license": "MIT",
+  "dependencies": {
+    "babel-standalone": "^6.21.1-0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  }
+}
