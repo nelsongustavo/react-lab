@@ -1,3 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom"
+
 class Comment extends React.Component {
 	constructor() {
     super();
@@ -91,8 +94,8 @@ class CommentBox extends React.Component {
 		this.state = {
 			showComments: false,
 			comments: [
-        { id: 1, author: 'Morgan McCircuit', body: 'Great picture!', avatarUrl: 'images/default-avatar.png' },
-        { id: 2, author: 'Bending Bender', body: 'Excellent stuff', avatarUrl: 'images/default-avatar.png' }
+        { id: 1, author: 'Morgan McCircuit', body: 'Great picture!', avatarUrl: 'assets/images/default-avatar.png' },
+        { id: 2, author: 'Bending Bender', body: 'Excellent stuff', avatarUrl: 'assets/images/default-avatar.png' }
       ]
 		};
 	}
