@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Comment from "./comment";
-import CommentForm from "./comment-form"
+import CommentForm from "./comment-form";
 
 class CommentBox extends React.Component {
 	constructor(){
