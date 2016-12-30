@@ -22,7 +22,9 @@ class Comment extends React.Component {
 					{commentBody}
 				</p>
 				<div className="comment-actions">
-          <a href="#">Delete comment</a>
+          <a href="#" onClick={this._handleDelete.bind(this)}>
+          	Delete comment
+          </a>
           <a href="#" onClick={this._toggleAbuse.bind(this)}>Report as Abuse</a>
         </div>
 			</div>
@@ -34,6 +36,13 @@ class Comment extends React.Component {
 		this.setState({
 			isAbusive: !this.state.isAbusive
 		});
+	}
+
+	_handleDelete(event) {
+		event.preventDefault();
+		if (confirm('Are you sure?')) {	
+			this.props.onDelete(this.props.comment);
+		}
 	}
 }
 

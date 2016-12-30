@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import 'whatwg-fetch'
 import Comment from "./comment";
 import CommentForm from "./comment-form";
 
@@ -9,12 +10,13 @@ class CommentBox extends React.Component {
 
 		this.state = {
 			showComments: false,
-			comments: [
-        { id: 1, author: 'Morgan McCircuit', body: 'Great picture!', avatarUrl: 'assets/images/default-avatar.png' },
-        { id: 2, author: 'Bending Bender', body: 'Excellent stuff', avatarUrl: 'assets/images/default-avatar.png' }
-      ]
+			comments: []
 		};
 	}
+  
+  componentWillMount() {
+    this._fetchComments();
+  }
 
 	render() {
 		const comments = this._getComments();
@@ -36,6 +38,63 @@ class CommentBox extends React.Component {
 		);
 	}
 
+  componentDidMount(){
+    this._timer = setInterval(() => this._fetchComments(), 5000);
+  }
+
+  componentWillUnmount() {
+      clearInterval(this._timer);
+  }
+
+  _addComment(author, body) {
+    const comment = {id: this.state.comments.length + 1, author, body, avatarUrl: 'assets/images/default-avatar.png'};
+
+    fetch('http://localhost:3000/comments/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(comment)
+    })
+    .then((response) => {
+      return response
+    }).then((comments) => {
+      this.setState({comments: this.state.comments.concat([comment]) });
+    }).catch(function(ex) {
+      console.log('parsing failed', ex)
+    });
+  }
+
+  _deleteComment(comment) {
+    fetch(`http://localhost:3000/comments/${comment.id}/`, {
+      method: 'DELETE'
+    })
+    .then((response) => {
+      return response
+    });
+    
+    const comments = [...this.state.comments];
+    const commentIndex = comments.indexOf(comment);
+    comments.splice(commentIndex, 1);
+
+    this.setState({ comments });
+  }
+
+  _fetchComments() {
+    fetch('http://localhost:3000/comments', {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json()
+    }).then((comments) => {
+        this.setState({
+          comments: comments
+        });
+    }).catch(function(ex) {
+      console.log('parsing failed', ex)
+    });
+  }
+
 	_handleClick() {
 		this.setState({
 			showComments: !this.state.showComments
@@ -51,7 +110,14 @@ class CommentBox extends React.Component {
 
 	_getComments() {
     return this.state.comments.map((comment) => {
-    	return (<Comment author={comment.author} body={comment.body} avatarUrl={comment.avatarUrl} key={comment.id} />);
+    	return (<Comment 
+                  author={comment.author}
+                  body={comment.body}
+                  avatarUrl={comment.avatarUrl}
+                  comment={comment}
+                  key={comment.id} 
+                  onDelete={this._deleteComment.bind(this)}
+              />);
     });
   }
 
@@ -63,18 +129,6 @@ class CommentBox extends React.Component {
     } else {
       return `${commentCount} comments`;
     }
-  }
-
-  _addComment(commentAuthor, commentBody) {
-    let comment = {
-      id: Math.floor(Math.random() * (9999 - this.state.comments.length + 1)) + this.state.comments.length,
-      author: commentAuthor,
-      body: commentBody
-    };
-
-    this.setState({
-      comments: this.state.comments.concat([comment])
-    });
   }
 }
 
