@@ -4,19 +4,22 @@
       "id": 1,
       "author": "Morgan McCircuit",
       "body": "Great picture!",
-      "avatarUrl": "assets/images/default-avatar.png"
+      "avatarUrl": "assets/images/default-avatar.png",
+      "isAbusive": false
     },
     {
       "id": 2,
       "author": "Bending Bender",
       "body": "Excellent stuff",
-      "avatarUrl": "assets/images/default-avatar.png"
+      "avatarUrl": "assets/images/default-avatar.png",
+      "isAbusive": false
     },
     {
       "id": 3,
       "author": "Novo post",
       "body": "Novo post",
-      "avatarUrl": "assets/images/default-avatar.png"
+      "avatarUrl": "assets/images/default-avatar.png",
+      "isAbusive": false
     }
   ]
 }

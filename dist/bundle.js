@@ -21049,6 +21049,13 @@ var Comment = function (_React$Component) {
 	}
 
 	_createClass(Comment, [{
+		key: "componentWillMount",
+		value: function componentWillMount() {
+			this.setState({
+				isAbusive: this.props.isAbusive
+			});
+		}
+	}, {
 		key: "render",
 		value: function render() {
 			var commentBody = void 0;
@@ -21095,9 +21102,11 @@ var Comment = function (_React$Component) {
 		key: "_toggleAbuse",
 		value: function _toggleAbuse(event) {
 			event.preventDefault();
-			this.setState({
-				isAbusive: !this.state.isAbusive
-			});
+			var comment = this.props.comment;
+			comment.isAbusive = !this.props.isAbusive;
+			this.props.updateComment(comment, this.setState({
+				isAbusive: !this.props.isAbusive
+			}));
 		}
 	}, {
 		key: "_handleDelete",
@@ -21221,6 +21230,21 @@ var CommentBox = function (_React$Component) {
       clearInterval(this._timer);
     }
   }, {
+    key: "_updateComment",
+    value: function _updateComment(comment, callback) {
+      fetch("http://localhost:3000/comments/" + comment.id + "/", {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+      }).then(function (response) {
+        return response;
+      }).then(function (comment) {
+        callback();
+      });
+    }
+  }, {
     key: "_addComment",
     value: function _addComment(author, body) {
       var _this3 = this;
@@ -21302,9 +21326,11 @@ var CommentBox = function (_React$Component) {
           author: comment.author,
           body: comment.body,
           avatarUrl: comment.avatarUrl,
+          isAbusive: comment.isAbusive,
           comment: comment,
           key: comment.id,
-          onDelete: _this5._deleteComment.bind(_this5)
+          onDelete: _this5._deleteComment.bind(_this5),
+          updateComment: _this5._updateComment
         });
       });
     }

@@ -7,6 +7,12 @@ class Comment extends React.Component {
     };
   }
 
+  componentWillMount() {
+   	this.setState({
+			isAbusive: this.props.isAbusive
+		});
+  }
+
 	render() {
 		let commentBody;
 		if (!this.state.isAbusive) {
@@ -33,9 +39,13 @@ class Comment extends React.Component {
 
 	_toggleAbuse(event) {
 		event.preventDefault();
-		this.setState({
-			isAbusive: !this.state.isAbusive
-		});
+		let comment = this.props.comment;
+		comment.isAbusive = !this.props.isAbusive;
+		this.props.updateComment(comment,
+			this.setState({
+				isAbusive: !this.props.isAbusive
+			})
+		);
 	}
 
 	_handleDelete(event) {

@@ -46,6 +46,21 @@ class CommentBox extends React.Component {
       clearInterval(this._timer);
   }
 
+  _updateComment(comment, callback) {
+    fetch(`http://localhost:3000/comments/${comment.id}/`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(comment)
+    })
+    .then((response) => {
+      return response
+    }).then((comment) => {
+      callback();
+    });
+  }
+
   _addComment(author, body) {
     const comment = {id: this.state.comments.length + 1, author, body, avatarUrl: 'assets/images/default-avatar.png'};
 
@@ -114,9 +129,11 @@ class CommentBox extends React.Component {
                   author={comment.author}
                   body={comment.body}
                   avatarUrl={comment.avatarUrl}
+                  isAbusive={comment.isAbusive}
                   comment={comment}
-                  key={comment.id} 
+                  key={comment.id}
                   onDelete={this._deleteComment.bind(this)}
+                  updateComment={this._updateComment}
               />);
     });
   }
