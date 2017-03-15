@@ -38,13 +38,12 @@
     "gulp-uglify": "^1.5.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "react-router": "^2.0.1",
+    "react-router": "^2.8.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "xss-filters": "^1.2.6",
+    "watchify": "^3.7.0",
     "whatwg-fetch": "^2.0.1",
-    "watchify": "^3.7.0"
+    "xss-filters": "^1.2.6"
   },
   "dependencies": {}
 }
-    

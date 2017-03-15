@@ -57,6 +57,6 @@ export default class Comment extends React.Component {
 	}
 
 	_handleDelete() {
-		this.props.onDelete(this.props.comment);
+		this.props.onDelete(this.props.id);
 	}
 }

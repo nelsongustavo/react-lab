@@ -17,7 +17,7 @@ export default class CommentBox extends React.Component {
     this._addComment = this._addComment.bind(this);
     this._handleClick = this._handleClick.bind(this);
 	}
-  
+
   componentWillMount() {
     this._fetchComments();
   }
@@ -75,7 +75,7 @@ export default class CommentBox extends React.Component {
   }
 
   _addComment(author, body) {
-    const comment = {id: this.state.comments.length + 1, author, body, avatarUrl: 'assets/images/default-avatar.png'};
+    const comment = {id: this.state.comments.length + 1, author, body, avatarUrl: 'assets/images/avatars/avatar-default.png', key: this.state.comments.length + 1};
 
     fetch('http://localhost:3000/comments/', {
       method: 'POST',
@@ -93,17 +93,17 @@ export default class CommentBox extends React.Component {
     });
   }
 
-  _deleteComment(comment) {
-    fetch(`http://localhost:3000/comments/${comment.id}/`, {
+  _deleteComment(id) {
+    fetch(`http://localhost:3000/comments/${id}/`, {
       method: 'DELETE'
     })
     .then((response) => {
       return response
     });
-    
-    const comments = [...this.state.comments];
-    const commentIndex = comments.indexOf(comment);
-    comments.splice(commentIndex, 1);
+
+		const comments = this.state.comments.filter(
+      comment => comment.id !== id
+    );
 
     this.setState({ comments });
   }
@@ -138,8 +138,9 @@ export default class CommentBox extends React.Component {
 
 	_getComments() {
     return this.state.comments.map((comment) => {
-    	return (<Comment 
+    	return (<Comment
                   {...comment}
+									key={comment.id}
                   onDelete={this._deleteComment}
                   updateComment={this._updateComment}
               />);
