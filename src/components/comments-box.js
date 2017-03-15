@@ -12,6 +12,10 @@ export default class CommentBox extends React.Component {
 			showComments: false,
 			comments: []
 		};
+
+    this._deleteComment = this._deleteComment.bind(this);
+    this._addComment = this._addComment.bind(this);
+    this._handleClick = this._handleClick.bind(this);
 	}
   
   componentWillMount() {
@@ -31,9 +35,9 @@ export default class CommentBox extends React.Component {
         <div className="cell">
           <h2>Join The Discussion</h2>
     			<div className="comment-box">
-    				<CommentForm addComment={this._addComment.bind(this)} />
+    				<CommentForm addComment={this._addComment} />
     				<CommentAvatarList avatars={this._getAvatars()} />
-    				<button onClick={this._handleClick.bind(this)}>{buttonText}</button>
+    				<button onClick={this._handleClick}>{buttonText}</button>
     				{this._getPopularMessage(comments.length)}
     				<h4 className="comment-count">{this._getCommentsTitle(comments.length)}</h4>
     				  {commentNodes}
@@ -135,14 +139,8 @@ export default class CommentBox extends React.Component {
 	_getComments() {
     return this.state.comments.map((comment) => {
     	return (<Comment 
-                  id={comment.id}
-                  author={comment.author}
-                  body={comment.body}
-                  avatarUrl={comment.avatarUrl}
-                  isAbusive={comment.isAbusive}
-                  comment={comment}
-                  key={comment.id}
-                  onDelete={this._deleteComment.bind(this)}
+                  {...comment}
+                  onDelete={this._deleteComment}
                   updateComment={this._updateComment}
               />);
     });
