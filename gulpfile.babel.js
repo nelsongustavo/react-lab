@@ -4,6 +4,8 @@ import source from 'vinyl-source-stream';
 import buffer from 'vinyl-buffer';
 import eslint from 'gulp-eslint';
 import exorcist from 'exorcist';
+import sass from 'gulp-sass';
+import sourcemaps from 'gulp-sourcemaps';
 import browserSync from 'browser-sync';
 import watchify from 'watchify';
 import babelify from 'babelify';
@@ -39,6 +41,14 @@ function bundle() {
     .pipe(gulp.dest('public/assets/js'));
 }
 
+gulp.task('sass', () =>
+	gulp.src('public/assets/style.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write(''))
+		.pipe(gulp.dest('public/assets'))
+);
+
 gulp.task('default', ['transpile']);
 
 gulp.task('transpile', ['lint'], () => bundle());
@@ -49,7 +59,7 @@ gulp.task('lint', () => {
       .pipe(eslint.format())
 });
 
-gulp.task('serve', ['transpile'], () => sync.init({
+gulp.task('serve', ['transpile', 'sass'], () => sync.init({
   server: 'public',
   port: process.env.PORT || 8000,
   host: process.env.IP || 'localhost'
@@ -61,4 +71,5 @@ gulp.task('watch', ['serve'], () => {
   gulp.watch('src/**/*', ['js-watch'])
   gulp.watch('public/assets/style.css', sync.reload)
   gulp.watch('public/index.html', sync.reload)
+  gulp.watch('public/assets/*.scss', ['sass']);
 });
