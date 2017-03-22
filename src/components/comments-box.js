@@ -10,7 +10,8 @@ export default class CommentBox extends React.Component {
 
 		this.state = {
 			showComments: false,
-			comments: []
+			comments: [],
+			count: 0
 		};
 
     this._deleteComment = this._deleteComment.bind(this);
@@ -52,6 +53,7 @@ export default class CommentBox extends React.Component {
   }
 
   componentDidMount(){
+		this._fetchTotal();
     this._timer = setInterval(() => this._fetchComments(), 5000);
   }
 
@@ -75,7 +77,7 @@ export default class CommentBox extends React.Component {
   }
 
   _addComment(author, body) {
-    const comment = {id: this.state.comments.length + 1, author, body, avatarUrl: 'assets/images/avatars/avatar-default.png', key: this.state.comments.length + 1};
+    const comment = {id: this.state.count + 1, author, body, avatarUrl: 'assets/images/avatars/avatar-default.png', key: this.state.count + 1, type: this.props.type};
 
     fetch('http://localhost:3000/comments/', {
       method: 'POST',
@@ -109,7 +111,7 @@ export default class CommentBox extends React.Component {
   }
 
   _fetchComments() {
-    fetch('http://localhost:3000/comments', {
+    fetch("http://localhost:3000/comments?type=" + this.props.type, {
       method: 'GET'
     })
     .then((response) => {
@@ -117,6 +119,21 @@ export default class CommentBox extends React.Component {
     }).then((comments) => {
         this.setState({
           comments: comments
+        });
+    }).catch(function(ex) {
+      console.log('parsing failed', ex)
+    });
+  }
+
+	_fetchTotal() {
+    fetch("http://localhost:3000/comments", {
+      method: 'GET'
+    })
+    .then((response) => {
+      return response.json()
+    }).then((comments) => {
+        this.setState({
+          count: comments.length
         });
     }).catch(function(ex) {
       console.log('parsing failed', ex)
@@ -157,3 +174,7 @@ export default class CommentBox extends React.Component {
     }
   }
 }
+
+CommentBox.propTypes = {
+	type: React.PropTypes.string.isRequired
+};
